@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
+    public const float SPEED = 4;
     private void Start()
     {
         Camera camera = new Camera();

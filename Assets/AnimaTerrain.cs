@@ -37,7 +37,7 @@ public class AnimaTerrain : MonoBehaviour
     public void SummonWall(int x, int z)
     {
         prefab = Resources.Load<GameObject>("Assets/Wall");
-        parent = GameObject.Find("Terrain");
+        parent = GameObject.Find("Terrain/Walls");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
         newTile.name = "Wall " + "(" + x + "," + z + ")";
@@ -46,7 +46,7 @@ public class AnimaTerrain : MonoBehaviour
     public void SummonPath(int x, int z)
     {
         prefab = Resources.Load<GameObject>("Assets/Path");
-        parent = GameObject.Find("Terrain");
+        parent = GameObject.Find("Terrain/Paths");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
         newTile.name = "Path " + "(" + x + "," + z + ")";
@@ -55,7 +55,7 @@ public class AnimaTerrain : MonoBehaviour
     public void SummonStart(int x, int z)
     {
         prefab = Resources.Load<GameObject>("Assets/Start");
-        parent = GameObject.Find("Terrain");
+        parent = GameObject.Find("Terrain/Stairs");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
         newTile.name = "Start " + "(" + x + "," + z + ")";
@@ -64,7 +64,7 @@ public class AnimaTerrain : MonoBehaviour
     public void SummonEnd(int x, int z)
     {
         prefab = Resources.Load<GameObject>("Assets/End");
-        parent = GameObject.Find("Terrain");
+        parent = GameObject.Find("Terrain/Stairs");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
         newTile.name = "End " + "(" + x + "," + z + ")";

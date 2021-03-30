@@ -58,12 +58,13 @@
   <ItemGroup>
     <Compile Include="Assets\Terrain.cs" />
     <Compile Include="Assets\Tile.cs" />
+    <Compile Include="Assets\Camera.cs" />
     <Compile Include="Assets\Game.cs" />
     <Compile Include="Assets\Dungeon.cs" />
     <Compile Include="Assets\AnimaTerrain.cs" />
     <Compile Include="Assets\Rng.cs" />
     <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\Camera.cs" />
+    <Compile Include="Assets\AnimaPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

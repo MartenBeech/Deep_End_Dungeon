@@ -17,7 +17,7 @@ public class Dungeon : MonoBehaviour
         xTiles = 50;
         zTiles = 50;
         GenerateTiles(xTiles, zTiles);
-        AddRooms(50, 2, 4);
+        AddRooms(2, 2, 4);
         AddRoomPaths();
         AddStairs();
         AnimaTerrain animaTerrain = new AnimaTerrain();
@@ -45,9 +45,9 @@ public class Dungeon : MonoBehaviour
         Rng rng = new Rng();
         for (int i = 0; i < rooms; i++)
         {
-            int xFrom = rng.Range(0, xTiles);
+            int xFrom = rng.Range(1, xTiles - 1);
             int xTo = xFrom + (rng.Range(0, 2) == 0 ? rng.Range(-maxSize + 1, -minSize) : rng.Range(minSize - 1, maxSize));
-            int zFrom = rng.Range(0, zTiles);
+            int zFrom = rng.Range(1, zTiles - 1);
             int zTo = zFrom + (rng.Range(0, 2) == 0 ? rng.Range(-maxSize + 1, -minSize) : rng.Range(minSize - 1, maxSize));
 
             if (xTo < xFrom)
@@ -63,18 +63,18 @@ public class Dungeon : MonoBehaviour
                 zFrom = zTemp;
             }
 
-            xFrom = (xFrom < 0 ? 0 : xFrom);
-            xTo = (xTo >= xTiles ? xTiles - 1 : xTo);
-            zFrom = (zFrom < 0 ? 0 : zFrom);
-            zTo = (zTo >= zTiles ? zTiles - 1 : zTo);
+            xFrom = (xFrom < 1 ? 1 : xFrom);
+            xTo = (xTo > xTiles - 2 ? xTiles - 2 : xTo);
+            zFrom = (zFrom < 1 ? 1 : zFrom);
+            zTo = (zTo > zTiles - 2 ? zTiles - 2 : zTo);
 
             terrain.AddRoom(xFrom, xTo, zFrom, zTo);
             int xCenter = xTo - ((xTo - xFrom) / 2);
             int zCenter = zTo - ((zTo - zFrom) / 2);
-            xCenter = (xCenter < 0 ? 0 : xCenter);
-            xCenter = (xCenter >= xTiles ? xTiles - 1 : xCenter);
-            zCenter = (zCenter < 0 ? 0 : zCenter);
-            zCenter = (zCenter >= zTiles ? zTiles - 1 : zCenter);
+            xCenter = (xCenter < 1 ? 1 : xCenter);
+            xCenter = (xCenter > xTiles - 2 ? xTiles - 2 : xCenter);
+            zCenter = (zCenter < 1 ? 1 : zCenter);
+            zCenter = (zCenter > zTiles - 2 ? zTiles - 2 : zCenter);
             xRoomCenters.Add(xCenter);
             zRoomCenters.Add(zCenter);
         }
@@ -199,19 +199,29 @@ public class Dungeon : MonoBehaviour
         Terrain terrain = new Terrain();
         Tile tile = new Tile();
 
-        int xStart, zStart, xEnd, zEnd;
+        int xStart = 0, zStart = 0, xEnd = 0, zEnd = 0;
         do
         {
-            xStart = rng.Range(0, xTiles);
-            zStart = rng.Range(0, zTiles);
+            xStart = rng.Range(1, xTiles - 1);
+            zStart = rng.Range(1, zTiles - 1);
         } while (Terrain.types[xStart, zStart] != Terrain.Type.Path);
         terrain.AddStart(xStart, zStart);
 
-        do
+        for (int i = 0; i >= 0; i++)
         {
-            xEnd = rng.Range(0, xTiles);
-            zEnd = rng.Range(0, zTiles);
-        } while (Terrain.types[xEnd, zEnd] != Terrain.Type.Path || tile.GetDistance(xStart, xEnd, zStart, zEnd) < ((xTiles + zTiles) / 4));
+            xEnd = rng.Range(1, xTiles - 1);
+            zEnd = rng.Range(1, zTiles - 1);
+            if (i < 100)
+            {
+                if (Terrain.types[xEnd, zEnd] == Terrain.Type.Path && tile.GetDistance(xStart, xEnd, zStart, zEnd) > ((xTiles + zTiles) / 4))
+                    break;
+            }
+            else
+            {
+                if (Terrain.types[xEnd, zEnd] == Terrain.Type.Path)
+                    break;
+            }
+        }
         terrain.AddEnd(xEnd, zEnd);
     }
 }

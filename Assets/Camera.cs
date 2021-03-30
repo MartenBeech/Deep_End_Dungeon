@@ -15,5 +15,6 @@ public class Camera : MonoBehaviour
     void Update()
     {
         Cam.transform.position = Player.player.transform.position + offset;
+        Cam.transform.rotation = Player.player.transform.rotation;
     }
 }
