@@ -19,4 +19,57 @@ public class Game : MonoBehaviour
         Dungeon dungeon = new Dungeon();
         dungeon.NewDungeon();
     }
+
+    private void Update()
+    {
+        if (Player.canMove)
+        {
+            if (Input.GetKey("w"))
+            {
+                Tile tile = new Tile();
+                if (tile.GetPassableInFront(Player.xPos, Player.zPos, Player.faceDirection))
+                {
+                    AnimaPlayer animaPlayer = new AnimaPlayer();
+                    if (Player.faceDirection == Tile.Direction.N)
+                        animaPlayer.MovePlayer(Player.xPos, Player.zPos + 1);
+                    else if (Player.faceDirection == Tile.Direction.S)
+                        animaPlayer.MovePlayer(Player.xPos, Player.zPos - 1);
+                    else if (Player.faceDirection == Tile.Direction.E)
+                        animaPlayer.MovePlayer(Player.xPos + 1, Player.zPos);
+                    else if (Player.faceDirection == Tile.Direction.W)
+                        animaPlayer.MovePlayer(Player.xPos - 1, Player.zPos);
+                    Player.canMove = false;
+                }
+            }
+            else if (Input.GetKey("s"))
+            {
+                Tile tile = new Tile();
+                if (tile.GetPassableBehind(Player.xPos, Player.zPos, Player.faceDirection))
+                {
+                    AnimaPlayer animaPlayer = new AnimaPlayer();
+                    if (Player.faceDirection == Tile.Direction.N)
+                        animaPlayer.MovePlayer(Player.xPos, Player.zPos - 1);
+                    else if (Player.faceDirection == Tile.Direction.S)
+                        animaPlayer.MovePlayer(Player.xPos, Player.zPos + 1);
+                    else if (Player.faceDirection == Tile.Direction.E)
+                        animaPlayer.MovePlayer(Player.xPos - 1, Player.zPos);
+                    else if (Player.faceDirection == Tile.Direction.W)
+                        animaPlayer.MovePlayer(Player.xPos + 1, Player.zPos);
+                    Player.canMove = false;
+                }
+            }
+            else if (Input.GetKey("a"))
+            {
+                AnimaPlayer animaPlayer = new AnimaPlayer();
+                animaPlayer.RotatePlayer(-90);
+                Player.canMove = false;
+            }
+            else if (Input.GetKey("d"))
+            {
+                AnimaPlayer animaPlayer = new AnimaPlayer();
+                animaPlayer.RotatePlayer(90);
+                Player.canMove = false;
+            }
+        }
+    }
 }

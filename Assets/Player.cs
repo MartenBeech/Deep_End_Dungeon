@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public const float yPos = 0.5f;
     public static int xPos = 0;
     public static int zPos = 0;
-    private static bool canMove = true;
+    public static bool canMove = true;
 
     
     public static Tile.Direction faceDirection = Tile.Direction.N;
@@ -19,59 +19,6 @@ public class Player : MonoBehaviour
     public void Init()
     {
         player = GameObject.Find("Player");
-    }
-
-    private void Update()
-    {
-        if (canMove)
-        {
-            if (Input.GetKey("w"))
-            {
-                Tile tile = new Tile();
-                if (tile.GetPassableInFront(xPos, zPos, faceDirection))
-                {
-                    AnimaPlayer animaPlayer = new AnimaPlayer();
-                    if (faceDirection == Tile.Direction.N)
-                        animaPlayer.MovePlayer(xPos, zPos + 1);
-                    else if (faceDirection == Tile.Direction.S)
-                        animaPlayer.MovePlayer(xPos, zPos - 1);
-                    else if (faceDirection == Tile.Direction.E)
-                        animaPlayer.MovePlayer(xPos + 1, zPos);
-                    else if (faceDirection == Tile.Direction.W)
-                        animaPlayer.MovePlayer(xPos - 1, zPos);
-                    canMove = false;
-                }
-            }
-            else if (Input.GetKey("s"))
-            {
-                Tile tile = new Tile();
-                if (tile.GetPassableBehind(xPos, zPos, faceDirection))
-                {
-                    AnimaPlayer animaPlayer = new AnimaPlayer();
-                    if (faceDirection == Tile.Direction.N)
-                        animaPlayer.MovePlayer(xPos, zPos - 1);
-                    else if (faceDirection == Tile.Direction.S)
-                        animaPlayer.MovePlayer(xPos, zPos + 1);
-                    else if (faceDirection == Tile.Direction.E)
-                        animaPlayer.MovePlayer(xPos - 1, zPos);
-                    else if (faceDirection == Tile.Direction.W)
-                        animaPlayer.MovePlayer(xPos + 1, zPos);
-                    canMove = false;
-                }
-            }
-            else if (Input.GetKey("a"))
-            {
-                AnimaPlayer animaPlayer = new AnimaPlayer();
-                animaPlayer.RotatePlayer(-90);
-                canMove = false;
-            }
-            else if (Input.GetKey("d"))
-            {
-                AnimaPlayer animaPlayer = new AnimaPlayer();
-                animaPlayer.RotatePlayer(90);
-                canMove = false;
-            }
-        }
     }
 
     public void MovePlayer(int x, int z)

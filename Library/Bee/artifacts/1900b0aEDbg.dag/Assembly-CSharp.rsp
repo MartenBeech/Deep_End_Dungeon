@@ -318,15 +318,21 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/VSSettingsProvider.ref.dll"
+"Assets/AnimaEnemy.cs"
 "Assets/AnimaPlayer.cs"
 "Assets/AnimaTerrain.cs"
 "Assets/Camera.cs"
+"Assets/Define.cs"
 "Assets/Dungeon.cs"
+"Assets/Enemy.cs"
+"Assets/EnemyMove.cs"
+"Assets/EnemyStats.cs"
 "Assets/Game.cs"
 "Assets/Player.cs"
 "Assets/Rng.cs"
 "Assets/Terrain.cs"
 "Assets/Tile.cs"
+"Assets/Turn.cs"
 -langversion:8.0
 
 /deterministic

@@ -47,4 +47,36 @@ public class Tile : MonoBehaviour
         }
         return false;
     }
+
+    public int[,] GetNearbyEnemies(int range)
+    {
+        int xMin = (Player.xPos - range < 1 ? 1 : Player.xPos - range);
+        int zMin = (Player.zPos - range < 1 ? 1 : Player.zPos - range);
+        int xMax = (Player.xPos + range > Dungeon.xTiles ? Dungeon.xTiles : Player.xPos + range);
+        int zMax = (Player.zPos + range > Dungeon.zTiles ? Dungeon.zTiles : Player.zPos + range);
+
+        List<int> xPos = new List<int>();
+        List<int> zPos = new List<int>();
+        Define define = new Define();
+
+        for (int i = xMin; i <= xMax; i++)
+        {
+            for (int j = zMin; j < zMax; j++)
+            {
+                if (GameObject.Find(define.GetTileName("Enemy", i, j)))
+                {
+                    xPos.Add(i);
+                    zPos.Add(j);
+                }
+            }
+        }
+
+        int[,] enemyPos = new int[2, zPos.Count];
+        for (int i = 0; i < enemyPos.Length; i++)
+        {
+            enemyPos[0, i] = xPos[i];
+            enemyPos[1, i] = zPos[i];
+        }
+        return enemyPos;
+    }
 }

@@ -40,7 +40,8 @@ public class AnimaTerrain : MonoBehaviour
         parent = GameObject.Find("Terrain/Walls");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
-        newTile.name = "Wall " + "(" + x + "," + z + ")";
+        Define define = new Define();
+        newTile.name = define.GetTileName("Wall", x, z);
     }
 
     public void SummonPath(int x, int z)
@@ -49,7 +50,8 @@ public class AnimaTerrain : MonoBehaviour
         parent = GameObject.Find("Terrain/Paths");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
-        newTile.name = "Path " + "(" + x + "," + z + ")";
+        Define define = new Define();
+        newTile.name = define.GetTileName("Path", x, z);
     }
 
     public void SummonStart(int x, int z)
@@ -58,7 +60,8 @@ public class AnimaTerrain : MonoBehaviour
         parent = GameObject.Find("Terrain/Stairs");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
-        newTile.name = "Start " + "(" + x + "," + z + ")";
+        Define define = new Define();
+        newTile.name = define.GetTileName("Start", x, z);
     }
 
     public void SummonEnd(int x, int z)
@@ -67,6 +70,7 @@ public class AnimaTerrain : MonoBehaviour
         parent = GameObject.Find("Terrain/Stairs");
 
         GameObject newTile = Instantiate(prefab, new Vector3(x, 0, z), new Quaternion(0, 0, 0, 0), parent.transform);
-        newTile.name = "End " + "(" + x + "," + z + ")";
+        Define define = new Define();
+        newTile.name = define.GetTileName("End", x, z);
     }
 }
