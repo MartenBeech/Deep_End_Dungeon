@@ -332,6 +332,7 @@
 "Assets/Game.cs"
 "Assets/Object.cs"
 "Assets/Player.cs"
+"Assets/PlayerAttack.cs"
 "Assets/Rng.cs"
 "Assets/Terrain.cs"
 "Assets/Tile.cs"

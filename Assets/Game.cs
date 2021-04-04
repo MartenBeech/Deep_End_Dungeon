@@ -81,8 +81,13 @@ public class Game : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Object obj = new Object();
+                Define define = new Define();
                 if (hit.collider.name.Contains("Enemy"))
-                    obj.EnemyClicked();
+                {
+                    int[] pos = define.GetTilePos(hit.collider.name);
+                    obj.EnemyClicked(pos[0], pos[1]);
+                }
+                    
             }
         }
     }

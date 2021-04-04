@@ -46,6 +46,6 @@ public class EnemyAction : MonoBehaviour
             counter = 1.1f / Game.SPEED;
         }
         else
-            counter = 0.1f / Game.SPEED;
+            counter = 0.04f / Game.SPEED;
     }
 }

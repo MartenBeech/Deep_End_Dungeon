@@ -65,6 +65,7 @@
     <Compile Include="Assets\EnemyAction.cs" />
     <Compile Include="Assets\AnimaEnemy.cs" />
     <Compile Include="Assets\Game.cs" />
+    <Compile Include="Assets\EnemyAttack.cs" />
     <Compile Include="Assets\Dungeon.cs" />
     <Compile Include="Assets\AnimaTerrain.cs" />
     <Compile Include="Assets\Enemy.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Assets\Rng.cs" />
     <Compile Include="Assets\EnemyMove.cs" />
     <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\EnemyAttack.cs" />
+    <Compile Include="Assets\PlayerAttack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
