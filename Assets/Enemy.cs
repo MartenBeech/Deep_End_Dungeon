@@ -6,15 +6,19 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    public static Enemy[,] enemies = new Enemy[Dungeon.MAXSIZE, Dungeon.MAXSIZE];
     public enum Title
     {
         Null,
     }
     public Title title;
 
-    public int attack = 0;
-    public int health = 0;
+    public int[] attack = new int[] { 0, 0 };
+    public int[] health = new int[] { 0, 0 };
     public int range = 0;
+    public int[] cd = new int[] { 0, 0 };
+
+    public bool charging = false;
         
 
     public void AddNormalEnemies(int amount)
@@ -31,7 +35,7 @@ public class Enemy : MonoBehaviour
                 zPos = rng.Range(1, Dungeon.zTiles - 1);
                 if (j < 100)
                 {
-                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path && tile.GetDistance(Player.xPos, xPos, Player.zPos, zPos) > ((Dungeon.xTiles + Dungeon.zTiles) / 100))
+                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path && tile.GetDistance(Player.xPos, xPos, Player.zPos, zPos) > ((Dungeon.xTiles + Dungeon.zTiles) / 10))
                         break;
                 }
                 else
@@ -41,16 +45,51 @@ public class Enemy : MonoBehaviour
                 }
             }
 
-            SummonEnemy(Title.Null, xPos, zPos);
+            AddEnemy(Title.Null, xPos, zPos);
         }
     }
 
-    public void SummonEnemy(Title title, int x, int z)
+    public void AddEnemy(Title title, int x, int z)
     {
         EnemyStats enemyStats = new EnemyStats();
-        Enemy enemy = enemyStats.GetStats(title);
+        enemies[x, z] = enemyStats.GetStats(title);
 
         AnimaEnemy animaEnemy = new AnimaEnemy();
         animaEnemy.SummonEnemy(x, z);
+    }
+
+    public void Move(int xFrom, int xTo, int zFrom, int zTo)
+    {
+        Define define = new Define();
+        GameObject enemy = GameObject.Find(define.GetTileName("Enemy", xFrom, zFrom));
+        enemy.transform.position = new Vector3(xTo, Player.yPos, zTo);
+        enemy.name = define.GetTileName("Enemy", xTo, zTo);
+
+        if (xFrom != xTo || zFrom != zTo)
+        {
+            enemies[xTo, zTo] = new Enemy();
+
+            Enemy posTo = enemies[xTo, zTo];
+            Enemy posFrom = enemies[xFrom, zFrom];
+            posTo.attack = new int[] { posFrom.attack[0], posFrom.attack[1] };
+            posTo.health = new int[] { posFrom.health[0], posFrom.health[1] };
+            posTo.range = posFrom.range;
+            posTo.cd = new int[] { posFrom.cd[0], posFrom.cd[1] };
+
+            enemies[xFrom, zFrom] = null;
+        }
+
+        if (enemies[xTo, zTo].cd[0] > 0)
+            enemies[xTo, zTo].cd[0]--;
+
+        if (enemies[xTo, zTo].cd[0] <= 0)
+        {
+            Tile tile = new Tile();
+            if (tile.GetDistance(xTo, Player.xPos, zTo, Player.zPos) <= enemies[xTo, zTo].range)
+            {
+                EnemyAttack enemyAttack = new EnemyAttack();
+                enemyAttack.Charge(xTo, zTo);
+            }
+        }
     }
 }

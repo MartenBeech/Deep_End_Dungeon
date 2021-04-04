@@ -11,71 +11,68 @@ public class Tile : MonoBehaviour
         N, S, E, W, NE, NW, SE, SW
     };
 
-    public int GetDistance(int xFrom, int xTo, int zFrom, int zTo)
+    public float GetDistance(int xFrom, int xTo, int zFrom, int zTo)
     {
-        return (Mathf.Abs(xTo - xFrom) + Mathf.Abs(zTo - zFrom));
+        int xDis = Mathf.Abs(xTo - xFrom);
+        int zDis = Mathf.Abs(zTo - zFrom);
+        return Mathf.Sqrt(Mathf.Pow(xDis, 2) + Mathf.Pow(zDis, 2));
     }
 
-    public bool GetPassableInFront(int x, int z, Direction direction)
+    public bool GetBlockedInFront(int x, int z, Direction direction)
     {
         switch(direction)
         {
             case Direction.N:
-                return Terrain.passable[x, z + 1];
+                return Terrain.blocked[x, z + 1] | Object.occupied[x, z + 1];
             case Direction.S:
-                return Terrain.passable[x, z - 1];
+                return Terrain.blocked[x, z - 1] | Object.occupied[x, z - 1];
             case Direction.E:
-                return Terrain.passable[x + 1, z];
+                return Terrain.blocked[x + 1, z] | Object.occupied[x + 1, z];
             case Direction.W:
-                return Terrain.passable[x - 1, z];
+                return Terrain.blocked[x - 1, z] | Object.occupied[x - 1, z];
         }
         return false;
     }
 
-    public bool GetPassableBehind(int x, int z, Direction direction)
+    public bool GetBlockedBehind(int x, int z, Direction direction)
     {
         switch (direction)
         {
             case Direction.N:
-                return Terrain.passable[x, z - 1];
+                return Terrain.blocked[x, z - 1] | Object.occupied[x, z - 1];
             case Direction.S:
-                return Terrain.passable[x, z + 1];
+                return Terrain.blocked[x, z + 1] | Object.occupied[x, z + 1];
             case Direction.E:
-                return Terrain.passable[x - 1, z];
+                return Terrain.blocked[x - 1, z] | Object.occupied[x - 1, z];
             case Direction.W:
-                return Terrain.passable[x + 1, z];
+                return Terrain.blocked[x + 1, z] | Object.occupied[x + 1, z];
         }
         return false;
     }
 
-    public int[,] GetNearbyEnemies(int range)
+    public List<int> GetNearbyEnemies(int range)
     {
         int xMin = (Player.xPos - range < 1 ? 1 : Player.xPos - range);
         int zMin = (Player.zPos - range < 1 ? 1 : Player.zPos - range);
-        int xMax = (Player.xPos + range > Dungeon.xTiles ? Dungeon.xTiles : Player.xPos + range);
-        int zMax = (Player.zPos + range > Dungeon.zTiles ? Dungeon.zTiles : Player.zPos + range);
+        int xMax = (Player.xPos + range > Dungeon.xTiles - 2 ? Dungeon.xTiles - 2 : Player.xPos + range);
+        int zMax = (Player.zPos + range > Dungeon.zTiles - 2 ? Dungeon.zTiles - 2 : Player.zPos + range);
 
-        List<int> xPos = new List<int>();
-        List<int> zPos = new List<int>();
+        List<int> enemyPos = new List<int>();
         Define define = new Define();
 
         for (int i = xMin; i <= xMax; i++)
         {
-            for (int j = zMin; j < zMax; j++)
+            for (int j = zMin; j <= zMax; j++)
             {
-                if (GameObject.Find(define.GetTileName("Enemy", i, j)))
+                if (GetDistance(i, Player.xPos, j, Player.zPos) <= range)
                 {
-                    xPos.Add(i);
-                    zPos.Add(j);
+                    if (GameObject.Find(define.GetTileName("Enemy", i, j)))
+                    {
+                        enemyPos.Add(i);
+                        enemyPos.Add(j);
+                    }
                 }
             }
-        }
-
-        int[,] enemyPos = new int[2, zPos.Count];
-        for (int i = 0; i < enemyPos.Length; i++)
-        {
-            enemyPos[0, i] = xPos[i];
-            enemyPos[1, i] = zPos[i];
         }
         return enemyPos;
     }

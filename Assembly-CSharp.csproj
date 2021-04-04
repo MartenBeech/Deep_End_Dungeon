@@ -60,17 +60,20 @@
     <Compile Include="Assets\EnemyStats.cs" />
     <Compile Include="Assets\Terrain.cs" />
     <Compile Include="Assets\Tile.cs" />
-    <Compile Include="Assets\Camera.cs" />
+    <Compile Include="Assets\Object.cs" />
+    <Compile Include="Assets\Cam.cs" />
+    <Compile Include="Assets\EnemyAction.cs" />
+    <Compile Include="Assets\AnimaEnemy.cs" />
     <Compile Include="Assets\Game.cs" />
     <Compile Include="Assets\Dungeon.cs" />
     <Compile Include="Assets\AnimaTerrain.cs" />
     <Compile Include="Assets\Enemy.cs" />
-    <Compile Include="Assets\Rng.cs" />
-    <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\AnimaEnemy.cs" />
     <Compile Include="Assets\Define.cs" />
-    <Compile Include="Assets\EnemyMove.cs" />
     <Compile Include="Assets\Turn.cs" />
+    <Compile Include="Assets\Rng.cs" />
+    <Compile Include="Assets\EnemyMove.cs" />
+    <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\EnemyAttack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

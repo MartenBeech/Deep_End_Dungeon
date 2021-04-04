@@ -10,12 +10,13 @@ public class EnemyStats : MonoBehaviour
     {
         Enemy enemy = ReturnDefaults(title);
 
-        switch(title)
+        switch (title)
         {
             case Enemy.Title.Null:
-                enemy.attack = 5;
-                enemy.health = 25;
+                enemy.attack = new int[] {5, 10};
+                enemy.health = new int[] { 25, 25 };
                 enemy.range = 1;
+                enemy.cd = new int[] { 0, 3 };
                 break;
         }
 

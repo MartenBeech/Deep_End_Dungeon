@@ -10,4 +10,13 @@ public class Define : MonoBehaviour
     {
         return type + " (" + x + "," + z + ")";
     }
+
+    public int[] GetTilePos(string name)
+    {
+        for (int i = 0; i < name.Length; i++)
+        {
+            
+        }
+        return new int[] { 0 };
+    }
 }

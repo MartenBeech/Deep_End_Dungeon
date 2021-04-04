@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     public const float SPEED = 4;
+
+    Ray ray;
+    RaycastHit hit;
     private void Start()
     {
-        Camera camera = new Camera();
-        camera.Init();
+        Cam cam = new Cam();
+        cam.Init();
         Player player = new Player();
         player.Init();
 
@@ -27,7 +30,7 @@ public class Game : MonoBehaviour
             if (Input.GetKey("w"))
             {
                 Tile tile = new Tile();
-                if (tile.GetPassableInFront(Player.xPos, Player.zPos, Player.faceDirection))
+                if (!tile.GetBlockedInFront(Player.xPos, Player.zPos, Player.faceDirection))
                 {
                     AnimaPlayer animaPlayer = new AnimaPlayer();
                     if (Player.faceDirection == Tile.Direction.N)
@@ -44,7 +47,7 @@ public class Game : MonoBehaviour
             else if (Input.GetKey("s"))
             {
                 Tile tile = new Tile();
-                if (tile.GetPassableBehind(Player.xPos, Player.zPos, Player.faceDirection))
+                if (!tile.GetBlockedBehind(Player.xPos, Player.zPos, Player.faceDirection))
                 {
                     AnimaPlayer animaPlayer = new AnimaPlayer();
                     if (Player.faceDirection == Tile.Direction.N)
@@ -71,5 +74,21 @@ public class Game : MonoBehaviour
                 Player.canMove = false;
             }
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Object obj = new Object();
+                if (hit.collider.name.Contains("Enemy"))
+                    obj.EnemyClicked();
+            }
+        }
+    }
+
+    public void EnemyClicked()
+    {
+
     }
 }

@@ -10,7 +10,7 @@ public class Turn : MonoBehaviour
     {
         Player, Enemy
     }
-    public Unit turn = Unit.Player;
+    public static Unit turn = Unit.Player;
 
     public void EndTurn()
     {
@@ -25,13 +25,15 @@ public class Turn : MonoBehaviour
     public void NewTurnPlayer()
     {
         turn = Unit.Player;
+
+        Player.canMove = true;
     }
 
     public void NewTurnEnemy()
     {
         turn = Unit.Enemy;
 
-        Tile tile = new Tile();
-        tile.GetNearbyEnemies(5);
+        EnemyAction enemyAction = new EnemyAction();
+        enemyAction.TakeAction();
     }
 }

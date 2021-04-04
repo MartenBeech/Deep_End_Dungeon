@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public static int zPos = 0;
     public static bool canMove = true;
 
+    public static int[] health = new int[] { 50, 50 };
+
     
     public static Tile.Direction faceDirection = Tile.Direction.N;
 
@@ -21,15 +23,25 @@ public class Player : MonoBehaviour
         player = GameObject.Find("Player");
     }
 
-    public void MovePlayer(int x, int z)
+    public void Move(int xFrom, int xTo, int zFrom, int zTo, bool endTurn = true)
     {
-        player.transform.position = new Vector3(x, yPos, z);
-        xPos = x;
-        zPos = z;
-        canMove = true;
+        player.transform.position = new Vector3(xTo, yPos, zTo);
+        xPos = xTo;
+        zPos = zTo;
+
+        Object.types[xFrom, zFrom] = Object.Type.Null;
+        Object.occupied[xFrom, zFrom] = false;
+        Object.types[xTo, zTo] = Object.Type.Player;
+        Object.occupied[xTo, zTo] = true;
+
+        if (endTurn)
+        {
+            Turn turn = new Turn();
+            turn.EndTurn();
+        }
     }
 
-    public void RotatePlayer(float degrees)
+    public void Rotate(float degrees)
     {
         angle = degrees;
         if (angle <= -2 * Mathf.PI)

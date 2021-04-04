@@ -8,22 +8,23 @@ public class Terrain : MonoBehaviour
 {
     public enum Type
     {
-        Path, Wall, Start, End,
         Null,
+        Path, Wall, Start, End,
+        
     }
     public static Type[,] types = new Type[Dungeon.MAXSIZE, Dungeon.MAXSIZE];
-    public static bool[,] passable = new bool[Dungeon.MAXSIZE, Dungeon.MAXSIZE];
+    public static bool[,] blocked = new bool[Dungeon.MAXSIZE, Dungeon.MAXSIZE];
 
     public void AddWall(int x, int z)
     {
         types[x, z] = Type.Wall;
-        passable[x, z] = false;
+        blocked[x, z] = true;
     }
 
     public void AddPath(int x, int z)
     {
         types[x, z] = Type.Path;
-        passable[x, z] = true;
+        blocked[x, z] = false;
     }
 
     public void AddRoom(int xFrom, int xTo, int zFrom, int zTo)
@@ -45,14 +46,14 @@ public class Terrain : MonoBehaviour
     public void AddStart(int x, int z)
     {
         types[x, z] = Type.Start;
-        passable[x, z] = true;
+        blocked[x, z] = false;
         Player player = new Player();
-        player.MovePlayer(x, z);
+        player.Move(x, x, z, z, false);
     }
 
     public void AddEnd(int x, int z)
     {
         types[x, z] = Type.End;
-        passable[x, z] = true;
+        blocked[x, z] = false;
     }
 }

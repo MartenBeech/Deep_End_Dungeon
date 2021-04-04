@@ -20,7 +20,7 @@ public class AnimaPlayer : MonoBehaviour
     {
         if (moveCounter > 0)
         {
-            Vector3 dir = new Vector3(xEnd, Player.yPos, zEnd) - new Vector3(xStart, Player.yPos, zStart);
+            Vector3 dir = new Vector3(xEnd, 0, zEnd) - new Vector3(xStart, 0, zStart);
             float dist = Mathf.Sqrt(
                 Mathf.Pow(xEnd - xStart, 2) +
                 Mathf.Pow(zEnd - zStart, 2));
@@ -30,7 +30,7 @@ public class AnimaPlayer : MonoBehaviour
             if (moveCounter <= 0)
             {
                 Player player = new Player();
-                player.MovePlayer(xEnd, zEnd);
+                player.Move(xStart, xEnd, zStart, zEnd, true);
             }
         }
 
@@ -45,7 +45,7 @@ public class AnimaPlayer : MonoBehaviour
             if (rotateCounter <= 0)
             {
                 Player player = new Player();
-                player.RotatePlayer(angleTo);
+                player.Rotate(angleTo);
             }
         }
     }

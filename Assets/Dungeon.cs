@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Dungeon : MonoBehaviour
 {
-    public const int MAXSIZE = 50;
+    public const int MAXSIZE = 8;
     public static int xTiles = MAXSIZE;
     public static int zTiles = MAXSIZE;
     private List<int> xRoomCenters = new List<int>();
@@ -23,7 +23,7 @@ public class Dungeon : MonoBehaviour
         AnimaTerrain animaTerrain = new AnimaTerrain();
         animaTerrain.SummonTerrain();
         Enemy enemy = new Enemy();
-        enemy.AddNormalEnemies(50);
+        enemy.AddNormalEnemies(1);
     }
 
     public void GenerateTiles(int xSize, int zSize)
