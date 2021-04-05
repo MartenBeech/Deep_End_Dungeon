@@ -17,6 +17,10 @@ public class Enemy : MonoBehaviour
     public int[] health = new int[] { 0, 0 };
     public int range = 0;
     public int[] cd = new int[] { 0, 0 };
+    public int poisoned = 0;
+    public int cantMove = 0;
+    public int armor = 0;
+    public int resistance = 0;
 
     public bool charging = false;
         

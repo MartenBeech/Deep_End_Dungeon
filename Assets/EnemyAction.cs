@@ -23,7 +23,7 @@ public class EnemyAction : MonoBehaviour
     public void TakeAction()
     {
         Tile tile = new Tile();
-        List<int> enemyPos = tile.GetNearbyEnemies(5);
+        List<int> enemyPos = tile.GetNearbyEnemies(Player.scoutRange);
 
         if (enemyPos.Count > 0)
         {

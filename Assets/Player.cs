@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public static int xPos = 0;
     public static int zPos = 0;
     public static bool canMove = true;
+    public static int scoutRange = 5;
+    public static bool shieldBlocked = false;
 
     public static int[] health = new int[] { 50, 50 };
 
