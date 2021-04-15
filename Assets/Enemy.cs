@@ -79,6 +79,12 @@ public class Enemy : MonoBehaviour
             posTo.health = new int[] { posFrom.health[0], posFrom.health[1] };
             posTo.range = posFrom.range;
             posTo.cd = new int[] { posFrom.cd[0], posFrom.cd[1] };
+            posTo.poisoned = posFrom.poisoned;
+            posTo.cantMove = posFrom.cantMove;
+            posTo.armor = posFrom.armor;
+            posTo.resistance = posFrom.resistance;
+
+            posTo.charging = posFrom.charging;
 
             enemies[xFrom, zFrom] = null;
         }

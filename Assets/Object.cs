@@ -17,6 +17,10 @@ public class Object : MonoBehaviour
 
     public void EnemyClicked(int x, int z)
     {
-
+        if (PlayerAttack.abilitySelected > -1)
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.UseAbility(PlayerAttack.abilitySelected, x, z);
+        }
     }
 }

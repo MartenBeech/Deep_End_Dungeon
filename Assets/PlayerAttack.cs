@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public int abilitySelected = -1;
+    public static int abilitySelected = -1;
+    public static int[] cooldown = new int[7];
+    public static int[] manaCost = new int[7] { 0, 0, 3, 3, 15, 15, 50 };
+    public static int[] coolDown = new int[7] { 0, 0, 0, 0, 10, 10, 30 };
     public enum Ability
     {
         Sword, Crossbow,
@@ -15,53 +18,101 @@ public class PlayerAttack : MonoBehaviour
         DeathsBlade
     }
 
-    public void UseAbility(Ability ability, int x, int z)
+
+    public void UseAbility(int id, int x, int z)
     {
-        switch(ability)
+        Tile tile = new Tile();
+        Turn turn = new Turn();
+
+        if (cooldown[id] == 0)
         {
-            case Ability.Sword:
-                DealDamage(x, z, 10, 20);
-                break;
-
-            case Ability.Crossbow:
-                DealDamage(x, z, 5, 10);
-                break;
-
-            case Ability.PoisonDart:
-                Enemy.enemies[x, z].poisoned += 3;
-                break;
-
-            case Ability.Incinerate:
-                Enemy.enemies[x, z].armor -= 5;
-                Enemy.enemies[x, z].resistance -= 5;
-                break;
-
-            case Ability.FrostNova:
-                Tile tile = new Tile();
-                List<int> enemyPos = tile.GetNearbyEnemies(Player.scoutRange);
-
-                for (int i = 0; i < enemyPos.Count; i += 2)
+                Ability ability = (Ability)id;
+                switch (ability)
                 {
-                    int xPos = enemyPos[i];
-                    int zPos = enemyPos[i + 1];
+                    case Ability.Sword:
+                        if (tile.GetDistance(Player.xPos, x, Player.zPos, z) < 2)
+                        {
+                            if (UseMana(manaCost[id]))
+                            {
+                                DealDamage(x, z, 10, 20);
+                                turn.EndTurn();
+                            }
+                        }
+                        break;
 
-                    Enemy.enemies[xPos, zPos].cantMove = 3;
+                    case Ability.Crossbow:
+                        if (UseMana(manaCost[id]))
+                        {
+                            DealDamage(x, z, 5, 10);
+                            turn.EndTurn();
+                        }
+                        break;
+
+                    case Ability.PoisonDart:
+                        if (UseMana(manaCost[id]))
+                        {
+                            Enemy.enemies[x, z].poisoned += 3;
+                            turn.EndTurn();
+                        }
+                        break;
+
+                    case Ability.Incinerate:
+                        if (UseMana(manaCost[id]))
+                        {
+                            Enemy.enemies[x, z].armor -= 5;
+                            Enemy.enemies[x, z].resistance -= 5;
+                            turn.EndTurn();
+                        }
+                        break;
+
+                    case Ability.FrostNova:
+                        List<int> enemyPos = tile.GetNearbyEnemies(Player.scoutRange);
+
+                        if (enemyPos.Count > 0)
+                        {
+                            if (UseMana(manaCost[id]))
+                            {
+                                for (int i = 0; i < enemyPos.Count; i += 2)
+                                {
+                                    int xPos = enemyPos[i];
+                                    int zPos = enemyPos[i + 1];
+
+                                    Enemy.enemies[xPos, zPos].cantMove = 3;
+                                }
+                                turn.EndTurn();
+                            }
+                        }
+                        break;
+
+                    case Ability.ShieldBlock:
+                        if (UseMana(manaCost[id]))
+                        {
+                            Player.shieldBlocked = true;
+                            turn.EndTurn();
+                        }
+                        break;
+
+                    case Ability.DeathsBlade:
+
+                        break;
                 }
-                break;
-
-            case Ability.ShieldBlock:
-                Player.shieldBlocked = true;
-                break;
-
-            case Ability.DeathsBlade:
-
-                break;
+            
         }
     }
 
     public void SelectAbility(int i)
     {
-        abilitySelected = i;
+        if (abilitySelected == i)
+            DeselectAbility();
+        else
+        {
+            abilitySelected = i;
+            if (abilitySelected == 4 || abilitySelected == 5)
+            {
+                UseAbility(abilitySelected, Player.xPos, Player.zPos);
+                DeselectAbility();
+            }
+        }
     }
 
     public void DeselectAbility()
@@ -73,5 +124,16 @@ public class PlayerAttack : MonoBehaviour
     {
         Rng rng = new Rng();
         int damage = rng.Range(dmgMin, dmgMax + 1);
+        Enemy.enemies[x, z].health[0] -= damage;
+    }
+
+    public bool UseMana(int amount)
+    {
+        if (Player.mana[0] >= amount)
+        {
+            Player.mana[0] -= amount;
+            return true;
+        }
+        return false;
     }
 }

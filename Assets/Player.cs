@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     public static bool shieldBlocked = false;
 
     public static int[] health = new int[] { 50, 50 };
+    public static int[] mana = new int[] { 50, 50 };
 
-    
+
     public static Tile.Direction faceDirection = Tile.Direction.N;
 
     public void Init()

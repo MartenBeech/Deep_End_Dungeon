@@ -16,7 +16,7 @@ public class EnemyStats : MonoBehaviour
                 enemy.attack = new int[] {5, 10};
                 enemy.health = new int[] { 25, 25 };
                 enemy.range = 1;
-                enemy.cd = new int[] { 0, 3 };
+                enemy.cd = new int[] { 0, 0 };
                 break;
         }
 

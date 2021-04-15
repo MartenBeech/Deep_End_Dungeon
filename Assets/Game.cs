@@ -61,18 +61,54 @@ public class Game : MonoBehaviour
                     Player.canMove = false;
                 }
             }
-            else if (Input.GetKey("a"))
+            else if (Input.GetKeyDown("a"))
             {
                 AnimaPlayer animaPlayer = new AnimaPlayer();
                 animaPlayer.RotatePlayer(-90);
                 Player.canMove = false;
             }
-            else if (Input.GetKey("d"))
+            else if (Input.GetKeyDown("d"))
             {
                 AnimaPlayer animaPlayer = new AnimaPlayer();
                 animaPlayer.RotatePlayer(90);
                 Player.canMove = false;
             }
+        }
+
+        if (Input.GetKeyDown("1"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(0);
+        }
+        else if (Input.GetKeyDown("2"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(1);
+        }
+        else if (Input.GetKeyDown("3"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(2);
+        }
+        else if (Input.GetKeyDown("4"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(3);
+        }
+        else if (Input.GetKeyDown("5"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(4);
+        }
+        else if (Input.GetKeyDown("6"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(5);
+        }
+        else if (Input.GetKeyDown("7"))
+        {
+            PlayerAttack playerAttack = new PlayerAttack();
+            playerAttack.SelectAbility(6);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -90,10 +126,5 @@ public class Game : MonoBehaviour
                     
             }
         }
-    }
-
-    public void EnemyClicked()
-    {
-
     }
 }

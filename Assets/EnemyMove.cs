@@ -23,7 +23,7 @@ public class EnemyMove : MonoBehaviour
 
             AnimaEnemy animaEnemy = new AnimaEnemy();
             GameObject prefab = GameObject.Find(define.GetTileName("Enemy", x, z));
-            if (moveDir.Count > 0)
+            if (moveDir.Count > 0 && Enemy.enemies[x, z].cantMove <= 0)
             {
                 Rng rng = new Rng();
                 char dir = moveDir[rng.Range(0, moveDir.Count)];
@@ -40,7 +40,11 @@ public class EnemyMove : MonoBehaviour
             }
 
             else
+            {
+                if (Enemy.enemies[x, z].cantMove > 0)
+                    Enemy.enemies[x, z].cantMove--;
                 animaEnemy.MoveEnemy(prefab, x, x, z, z);
+            }
         }
     }
 }
