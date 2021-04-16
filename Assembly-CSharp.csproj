@@ -75,6 +75,9 @@
     <Compile Include="Assets\Rng.cs" />
     <Compile Include="Assets\EnemyMove.cs" />
     <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\Map.cs" />
+    <Compile Include="Assets\AnimaMap.cs" />
+    <Compile Include="Assets\Scout.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     {
         EnemyStats enemyStats = new EnemyStats();
         enemies[x, z] = enemyStats.GetStats(title);
+        Object.types[x, z] = Object.Type.Enemy;
 
         AnimaEnemy animaEnemy = new AnimaEnemy();
         animaEnemy.SummonEnemy(x, z);

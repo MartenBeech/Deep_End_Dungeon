@@ -24,6 +24,7 @@ public class Dungeon : MonoBehaviour
         animaTerrain.SummonTerrain();
         Enemy enemy = new Enemy();
         enemy.AddNormalEnemies(1);
+        GenerateMap(xTiles, zTiles);
     }
 
     public void GenerateTiles(int xSize, int zSize)
@@ -34,6 +35,21 @@ public class Dungeon : MonoBehaviour
             for (int x = 0; x < xSize; x++)
             {
                 terrain.AddWall(x, z);
+            }
+        }
+    }
+
+    public void GenerateMap(int xSize, int zSize)
+    {
+        Map map = new Map();
+        Scout scout = new Scout();
+        map.SetMapSize(xSize, zSize);
+        for (int z = 0; z < zSize; z++)
+        {
+            for (int x = 0; x < xSize; x++)
+            {
+                map.AddMap(x, z);
+                scout.ScoutMapTile(x, z);
             }
         }
     }
