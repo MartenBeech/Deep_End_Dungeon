@@ -61,18 +61,19 @@ public class Game : MonoBehaviour
                     Player.canMove = false;
                 }
             }
-            else if (Input.GetKeyDown("a"))
-            {
-                AnimaPlayer animaPlayer = new AnimaPlayer();
-                animaPlayer.RotatePlayer(-90);
-                Player.canMove = false;
-            }
-            else if (Input.GetKeyDown("d"))
-            {
-                AnimaPlayer animaPlayer = new AnimaPlayer();
-                animaPlayer.RotatePlayer(90);
-                Player.canMove = false;
-            }
+        }
+
+        if (Input.GetKeyDown("a"))
+        {
+            AnimaPlayer animaPlayer = new AnimaPlayer();
+            animaPlayer.RotatePlayer(-90);
+            Player.canMove = false;
+        }
+        else if (Input.GetKeyDown("d"))
+        {
+            AnimaPlayer animaPlayer = new AnimaPlayer();
+            animaPlayer.RotatePlayer(90);
+            Player.canMove = false;
         }
 
         if (Input.GetKeyDown("1"))

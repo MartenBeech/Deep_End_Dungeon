@@ -125,6 +125,10 @@ public class PlayerAttack : MonoBehaviour
         Rng rng = new Rng();
         int damage = rng.Range(dmgMin, dmgMax + 1);
         Enemy.enemies[x, z].health[0] -= damage;
+        Define define = new Define();
+        GameObject enemyHealthBar = GameObject.Find(define.GetTileName("EnemyHealthBar", x, z));
+        enemyHealthBar.GetComponentInChildren<Text>().text = Enemy.enemies[x, z].health[0] + "/" + Enemy.enemies[x, z].health[1];
+        enemyHealthBar.GetComponent<Image>().fillAmount = (float)Enemy.enemies[x, z].health[0] / (float)Enemy.enemies[x, z].health[1];
     }
 
     public bool UseMana(int amount)

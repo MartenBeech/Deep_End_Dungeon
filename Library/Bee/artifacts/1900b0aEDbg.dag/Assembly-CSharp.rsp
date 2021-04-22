@@ -319,6 +319,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/VSSettingsProvider.ref.dll"
 "Assets/AnimaEnemy.cs"
+"Assets/AnimaEnemyHealthBar.cs"
 "Assets/AnimaMap.cs"
 "Assets/AnimaPlayer.cs"
 "Assets/AnimaTerrain.cs"

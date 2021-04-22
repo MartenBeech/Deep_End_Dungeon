@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class Scout : MonoBehaviour
 {
-    public void ScoutTile(int x, int z)
-    {
-        
-    }
-
     public void ScoutMapTile(int x, int z)
     {
         Define define = new Define();
@@ -26,6 +21,19 @@ public class Scout : MonoBehaviour
                 GameObject.Find(define.GetTileName("MapTile", x, z)).GetComponent<Image>().color = Color.HSVToRGB(120 / 360f, 0.7f, 0.7f);
             else if (Terrain.types[x, z] == Terrain.Type.End)
                 GameObject.Find(define.GetTileName("MapTile", x, z)).GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0.7f, 0.7f);
+            else
+                GameObject.Find(define.GetTileName("MapTile", x, z)).GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 0, 1);
+        }
+    }
+
+    public void ScoutPlayer()
+    {
+        for (int z = 0; z < Dungeon.zTiles; z++)
+        {
+            for (int x = 0; x < Dungeon.xTiles; x++)
+            {
+                ScoutMapTile(x, z);
+            }
         }
     }
 }

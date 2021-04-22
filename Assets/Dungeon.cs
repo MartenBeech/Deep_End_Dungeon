@@ -49,9 +49,9 @@ public class Dungeon : MonoBehaviour
             for (int x = 0; x < xSize; x++)
             {
                 map.AddMap(x, z);
-                scout.ScoutMapTile(x, z);
             }
         }
+        scout.ScoutPlayer();
     }
 
     public void AddRooms(int rooms, int minSize, int maxSize)

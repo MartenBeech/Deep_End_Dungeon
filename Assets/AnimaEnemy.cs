@@ -33,6 +33,8 @@ public class AnimaEnemy : MonoBehaviour
                 enemy.Move(xStart, xEnd, zStart, zEnd);
             }
         }
+
+        this.transform.rotation = new Quaternion(Player.player.transform.rotation.x, Player.player.transform.rotation.y, Player.player.transform.rotation.z, Player.player.transform.rotation.w);
     }
 
 
@@ -44,6 +46,9 @@ public class AnimaEnemy : MonoBehaviour
         GameObject newTile = Instantiate(prefab, new Vector3(x, Player.yPos, z), new Quaternion(0, 0, 0, 0), parent.transform);
         Define define = new Define();
         newTile.name = define.GetTileName("Enemy", x, z);
+
+        AnimaEnemyHealthBar animaEnemyHealthBar = new AnimaEnemyHealthBar();
+        animaEnemyHealthBar.SummonEnemyHealthBar(x, z);
     }
 
     public void MoveEnemy(GameObject gameObject, int xFrom, int xTo, int zFrom, int zTo)
@@ -58,5 +63,12 @@ public class AnimaEnemy : MonoBehaviour
         Object.occupied[xFrom, zFrom] = false;
         Object.types[xTo, zTo] = Object.Type.Enemy;
         Object.occupied[xTo, zTo] = true;
+
+        Define define = new Define();
+        GameObject prefab = GameObject.Find(define.GetTileName("EnemyHealthBar", xFrom, zFrom));
+        AnimaEnemyHealthBar animaEnemyHealthBar = new AnimaEnemyHealthBar();
+        animaEnemyHealthBar.MoveEnemyHealthBar(prefab, xFrom, xTo, zFrom, zTo);
     }
+
+    
 }

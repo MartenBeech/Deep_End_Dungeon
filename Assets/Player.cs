@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
     public static GameObject player;
     public static float angle = 0f;
-    public const float yPos = 0.5f;
+    public const float yPos = 0.25f;
     public static int xPos = 0;
     public static int zPos = 0;
     public static bool canMove = true;

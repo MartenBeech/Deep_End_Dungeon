@@ -19,7 +19,8 @@ public class Turn : MonoBehaviour
         else
             NewTurnPlayer();
 
-
+        Scout scout = new Scout();
+        scout.ScoutPlayer();
     }
 
     public void NewTurnPlayer()
