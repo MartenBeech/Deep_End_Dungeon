@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Dungeon : MonoBehaviour
 {
-    public const int MAXSIZE = 10;
+    public const int MAXSIZE = 20;
     public static int xTiles = MAXSIZE;
     public static int zTiles = MAXSIZE;
     private List<int> xRoomCenters = new List<int>();

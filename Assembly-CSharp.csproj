@@ -63,7 +63,7 @@
     <Compile Include="Assets\Terrain.cs" />
     <Compile Include="Assets\Scout.cs" />
     <Compile Include="Assets\Tile.cs" />
-    <Compile Include="Assets\Object.cs" />
+    <Compile Include="Assets\Obstacle.cs" />
     <Compile Include="Assets\Cam.cs" />
     <Compile Include="Assets\PlayerAttack.cs" />
     <Compile Include="Assets\EnemyAction.cs" />
@@ -72,13 +72,13 @@
     <Compile Include="Assets\EnemyAttack.cs" />
     <Compile Include="Assets\Dungeon.cs" />
     <Compile Include="Assets\AnimaTerrain.cs" />
+    <Compile Include="Assets\AnimaEnemyHealthBar.cs" />
     <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\Define.cs" />
     <Compile Include="Assets\Turn.cs" />
     <Compile Include="Assets\Rng.cs" />
     <Compile Include="Assets\EnemyMove.cs" />
     <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\AnimaEnemyHealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

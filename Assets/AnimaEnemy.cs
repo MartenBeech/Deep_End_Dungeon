@@ -59,10 +59,10 @@ public class AnimaEnemy : MonoBehaviour
         gameObject.GetComponentInChildren<AnimaEnemy>().zEnd = zTo;
         gameObject.GetComponentInChildren<AnimaEnemy>().moveCounter += 1 / Game.SPEED;
 
-        Object.types[xFrom, zFrom] = Object.Type.Null;
-        Object.occupied[xFrom, zFrom] = false;
-        Object.types[xTo, zTo] = Object.Type.Enemy;
-        Object.occupied[xTo, zTo] = true;
+        Obstacle.types[xFrom, zFrom] = Obstacle.Type.Null;
+        Obstacle.occupied[xFrom, zFrom] = false;
+        Obstacle.types[xTo, zTo] = Obstacle.Type.Enemy;
+        Obstacle.occupied[xTo, zTo] = true;
 
         Define define = new Define();
         GameObject prefab = GameObject.Find(define.GetTileName("EnemyHealthBar", xFrom, zFrom));

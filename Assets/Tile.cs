@@ -23,13 +23,13 @@ public class Tile : MonoBehaviour
         switch(direction)
         {
             case Direction.N:
-                return Terrain.blocked[x, z + 1] | Object.occupied[x, z + 1];
+                return Terrain.blocked[x, z + 1] | Obstacle.occupied[x, z + 1];
             case Direction.S:
-                return Terrain.blocked[x, z - 1] | Object.occupied[x, z - 1];
+                return Terrain.blocked[x, z - 1] | Obstacle.occupied[x, z - 1];
             case Direction.E:
-                return Terrain.blocked[x + 1, z] | Object.occupied[x + 1, z];
+                return Terrain.blocked[x + 1, z] | Obstacle.occupied[x + 1, z];
             case Direction.W:
-                return Terrain.blocked[x - 1, z] | Object.occupied[x - 1, z];
+                return Terrain.blocked[x - 1, z] | Obstacle.occupied[x - 1, z];
         }
         return false;
     }
@@ -39,13 +39,13 @@ public class Tile : MonoBehaviour
         switch (direction)
         {
             case Direction.N:
-                return Terrain.blocked[x, z - 1] | Object.occupied[x, z - 1];
+                return Terrain.blocked[x, z - 1] | Obstacle.occupied[x, z - 1];
             case Direction.S:
-                return Terrain.blocked[x, z + 1] | Object.occupied[x, z + 1];
+                return Terrain.blocked[x, z + 1] | Obstacle.occupied[x, z + 1];
             case Direction.E:
-                return Terrain.blocked[x - 1, z] | Object.occupied[x - 1, z];
+                return Terrain.blocked[x - 1, z] | Obstacle.occupied[x - 1, z];
             case Direction.W:
-                return Terrain.blocked[x + 1, z] | Object.occupied[x + 1, z];
+                return Terrain.blocked[x + 1, z] | Obstacle.occupied[x + 1, z];
         }
         return false;
     }
@@ -60,16 +60,20 @@ public class Tile : MonoBehaviour
         List<int> enemyPos = new List<int>();
         Define define = new Define();
 
-        for (int i = xMin; i <= xMax; i++)
+        for (int dist = 1; dist <= range; dist++)
         {
-            for (int j = zMin; j <= zMax; j++)
+            for (int i = xMin; i <= xMax; i++)
             {
-                if (GetDistance(i, Player.xPos, j, Player.zPos) <= range)
+                for (int j = zMin; j <= zMax; j++)
                 {
-                    if (GameObject.Find(define.GetTileName("Enemy", i, j)))
+                    float distance = GetDistance(i, Player.xPos, j, Player.zPos);
+                    if (distance <= dist && distance > dist - 1)
                     {
-                        enemyPos.Add(i);
-                        enemyPos.Add(j);
+                        if (Obstacle.types[i, j] == Obstacle.Type.Enemy)
+                        {
+                            enemyPos.Add(i);
+                            enemyPos.Add(j);
+                        }
                     }
                 }
             }

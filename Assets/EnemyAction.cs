@@ -32,15 +32,22 @@ public class EnemyAction : MonoBehaviour
                 int x = enemyPos[i];
                 int z = enemyPos[i + 1];
 
-                if (Enemy.enemies[x, z].charging)
+                if (Obstacle.types[x, z] == Obstacle.Type.Enemy)
                 {
-                    EnemyAttack enemyAttack = new EnemyAttack();
-                    enemyAttack.Attack(x, z);
+                    if (Enemy.enemies[x, z].charging)
+                    {
+                        EnemyAttack enemyAttack = new EnemyAttack();
+                        enemyAttack.Attack(x, z);
+                    }
+                    else
+                    {
+                        EnemyMove enemyMove = new EnemyMove();
+                        enemyMove.MoveTowardsPlayer(x, z);
+                    }
                 }
                 else
                 {
-                    EnemyMove enemyMove = new EnemyMove();
-                    enemyMove.MoveTowardsPlayer(x, z);
+
                 }
             }
             counter = 1.1f / Game.SPEED;

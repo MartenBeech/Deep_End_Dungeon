@@ -39,12 +39,13 @@ public class Enemy : MonoBehaviour
                 zPos = rng.Range(1, Dungeon.zTiles - 1);
                 if (j < 100)
                 {
-                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path && tile.GetDistance(Player.xPos, xPos, Player.zPos, zPos) > ((Dungeon.xTiles + Dungeon.zTiles) / 10))
-                        break;
+                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path && Obstacle.types[xPos, zPos] == Obstacle.Type.Null)
+                        if (tile.GetDistance(Player.xPos, xPos, Player.zPos, zPos) > ((Dungeon.xTiles + Dungeon.zTiles) / 10))
+                            break;
                 }
                 else
                 {
-                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path)
+                    if (Terrain.types[xPos, zPos] == Terrain.Type.Path && Obstacle.types[xPos, zPos] == Obstacle.Type.Null)
                         break;
                 }
             }
@@ -57,7 +58,7 @@ public class Enemy : MonoBehaviour
     {
         EnemyStats enemyStats = new EnemyStats();
         enemies[x, z] = enemyStats.GetStats(title);
-        Object.types[x, z] = Object.Type.Enemy;
+        Obstacle.types[x, z] = Obstacle.Type.Enemy;
 
         AnimaEnemy animaEnemy = new AnimaEnemy();
         animaEnemy.SummonEnemy(x, z);
@@ -102,5 +103,18 @@ public class Enemy : MonoBehaviour
                 enemyAttack.Charge(xTo, zTo);
             }
         }
+    }
+
+    public void Kill(int x, int z)
+    {
+        Define define = new Define();
+        Destroy(GameObject.Find(define.GetTileName("Enemy", x, z)));
+        Destroy(GameObject.Find(define.GetTileName("EnemyHealthBar", x, z)));
+        enemies[x, z] = null;
+        Obstacle obstacle = new Obstacle();
+        obstacle.Kill(x, z);
+
+        Scout scout = new Scout();
+        scout.ScoutPlayer();
     }
 }

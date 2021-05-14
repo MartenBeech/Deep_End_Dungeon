@@ -12,13 +12,13 @@ public class EnemyMove : MonoBehaviour
         if (GameObject.Find(define.GetTileName("Enemy", x, z)))
         {
             List<char> moveDir = new List<char>();
-            if (z < Player.zPos && !Terrain.blocked[x, z + 1] && !Object.occupied[x, z + 1])
+            if (z < Player.zPos && !Terrain.blocked[x, z + 1] && !Obstacle.occupied[x, z + 1])
                 moveDir.Add('N');
-            if (z > Player.zPos && !Terrain.blocked[x, z - 1] && !Object.occupied[x, z - 1])
+            if (z > Player.zPos && !Terrain.blocked[x, z - 1] && !Obstacle.occupied[x, z - 1])
                 moveDir.Add('S');
-            if (x < Player.xPos && !Terrain.blocked[x + 1, z] && !Object.occupied[x + 1, z])
+            if (x < Player.xPos && !Terrain.blocked[x + 1, z] && !Obstacle.occupied[x + 1, z])
                 moveDir.Add('E');
-            if (x > Player.xPos && !Terrain.blocked[x - 1, z] && !Object.occupied[x - 1, z])
+            if (x > Player.xPos && !Terrain.blocked[x - 1, z] && !Obstacle.occupied[x - 1, z])
                 moveDir.Add('W');
 
             AnimaEnemy animaEnemy = new AnimaEnemy();

@@ -9,9 +9,9 @@ public class Scout : MonoBehaviour
     public void ScoutMapTile(int x, int z)
     {
         Define define = new Define();
-        if (Object.types[x, z] == Object.Type.Player)
+        if (Obstacle.types[x, z] == Obstacle.Type.Player)
             GameObject.Find(define.GetTileName("MapTile", x, z)).GetComponent<Image>().color = Color.HSVToRGB(120 / 360f, 1, 1);
-        else if (Object.types[x, z] == Object.Type.Enemy)
+        else if (Obstacle.types[x, z] == Obstacle.Type.Enemy)
             GameObject.Find(define.GetTileName("MapTile", x, z)).GetComponent<Image>().color = Color.HSVToRGB(0 / 360f, 1, 1);
         else
         {

@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
         xPos = xTo;
         zPos = zTo;
 
-        Object.types[xFrom, zFrom] = Object.Type.Null;
-        Object.occupied[xFrom, zFrom] = false;
-        Object.types[xTo, zTo] = Object.Type.Player;
-        Object.occupied[xTo, zTo] = true;
+        Obstacle.types[xFrom, zFrom] = Obstacle.Type.Null;
+        Obstacle.occupied[xFrom, zFrom] = false;
+        Obstacle.types[xTo, zTo] = Obstacle.Type.Player;
+        Obstacle.occupied[xTo, zTo] = true;
 
         if (endTurn)
         {

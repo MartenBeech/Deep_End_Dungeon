@@ -333,7 +333,7 @@
 "Assets/EnemyStats.cs"
 "Assets/Game.cs"
 "Assets/Map.cs"
-"Assets/Object.cs"
+"Assets/Obstacle.cs"
 "Assets/Player.cs"
 "Assets/PlayerAttack.cs"
 "Assets/Rng.cs"

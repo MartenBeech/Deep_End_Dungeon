@@ -117,7 +117,7 @@ public class Game : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                Object obj = new Object();
+                Obstacle obj = new Obstacle();
                 Define define = new Define();
                 if (hit.collider.name.Contains("Enemy"))
                 {
